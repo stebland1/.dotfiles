@@ -72,7 +72,6 @@ packer.startup(function(use)
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
 
 	use("windwp/nvim-autopairs")
-	use("windwp/nvim-ts-autotag")
 	use("norcalli/nvim-colorizer.lua")
 	use("github/copilot.vim")
 
