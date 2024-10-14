@@ -80,23 +80,6 @@ local M = {
 			{ i(1, "name"), i(2), i(3) }
 		)
 	),
-
-	-- Loadable
-	s(
-		{ trig = "loadable", dscr = "Loadable dynamic import for lazyloading react components" },
-		fmt(
-			table.concat({
-				"import React from 'react';",
-				"import loadable from 'ap3-foundations-ui/lib/utils/loadable';",
-				"import LoadingIndicator from 'ap3-foundations-ui/lib/components/loading-indicator';",
-				"",
-				"export default loadable(() => import(/* webpackChunkName: \"{}\" */ '{}'), {{",
-				"  fallback: <LoadingIndicator />",
-				"}};",
-			}, "\n"),
-			{ i(1), i(2) }
-		)
-	),
 }
 
 return M
