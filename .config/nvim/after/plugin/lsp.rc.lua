@@ -14,7 +14,7 @@ local util = lspconfig.util
 lsp.preset("recommended")
 
 lsp.ensure_installed({
-	"tsserver",
+	"ts_ls",
 	"lua_ls",
 	"rust_analyzer",
 })
