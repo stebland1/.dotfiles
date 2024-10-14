@@ -14,8 +14,7 @@ packer.startup(function(use)
 	-- use("lukas-reineke/indent-blankline.nvim") -- Indentation guides
 	use("wbthomason/lsp-status.nvim")
 
-	-- use("ellisonleao/gruvbox.nvim")
-	use("folke/tokyonight.nvim")
+	use("rose-pine/neovim") -- Colorscheme
 
 	-- LSP
 	use({
