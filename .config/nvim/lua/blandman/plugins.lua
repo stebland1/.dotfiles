@@ -11,10 +11,9 @@ packer.startup(function(use)
 	use("nvim-lualine/lualine.nvim") -- Statusline
 	use("nvim-lua/plenary.nvim") -- Common utilities
 	use("onsails/lspkind-nvim") -- vscode-like pictograms
-	-- use("lukas-reineke/indent-blankline.nvim") -- Indentation guides
 	use("wbthomason/lsp-status.nvim")
-
 	use("rose-pine/neovim") -- Colorscheme
+	use("nvim-tree/nvim-tree.lua")
 
 	-- LSP
 	use({
@@ -43,6 +42,17 @@ packer.startup(function(use)
 		},
 	})
 
+	-- Debugger
+	use({
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			"rcarriga/nvim-dap-ui",
+			"theHamsta/nvim-dap-virtual-text",
+			"williamboman/mason.nvim",
+		},
+	})
+	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } })
+	use("theHamsta/nvim-dap-virtual-text")
 
 	use("folke/trouble.nvim")
 
@@ -71,7 +81,8 @@ packer.startup(function(use)
 
 	use("windwp/nvim-autopairs")
 	use("norcalli/nvim-colorizer.lua")
-	use("github/copilot.vim")
+
+	-- use("github/copilot.vim")
 
 	use("lewis6991/gitsigns.nvim")
 
@@ -79,7 +90,6 @@ packer.startup(function(use)
 
 	use("numToStr/FTerm.nvim")
 
-	-- use("numToStr/Comment.nvim")
 	use("tpope/vim-commentary")
 
 	use("mbbill/undotree")
