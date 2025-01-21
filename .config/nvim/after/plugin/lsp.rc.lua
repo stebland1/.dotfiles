@@ -24,6 +24,17 @@ local null_opts = lsp.build_options("null-ls", {})
 local formatting = null_ls.builtins.formatting
 local code_actions = null_ls.builtins.code_actions
 
+lspconfig.bashls.setup({
+	cmd = { "bash-language-server", "start" },
+	filetypes = { "sh", "bash", "zsh" },
+	root_dir = lspconfig.util.root_pattern(".git", "."),
+	settings = {
+		bash = {
+			strict = true,
+		},
+	},
+})
+
 lspconfig.eslint.setup({
 	on_attach = function(_, bufnr)
 		vim.api.nvim_create_autocmd("BufWritePre", {
