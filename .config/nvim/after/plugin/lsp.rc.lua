@@ -33,6 +33,25 @@ lspconfig.eslint.setup({
 	end,
 })
 
+lspconfig.pyright.setup({
+	settings = {
+		python = {
+			-- Automatically use the Python interpreter from the active virtualenv
+			pythonPath = vim.fn.getcwd() .. "/.venv/bin/python",
+		},
+	},
+	on_attach = function(client, bufnr)
+		-- Make sure null-ls is attached for Python formatting
+		null_ls.register({
+			-- Python formatter: `black`
+			formatting = {
+				command = "black", -- Use black for Python formatting
+				args = { "--quiet", "-" },
+			},
+		})
+	end,
+})
+
 null_ls.setup({
 	on_attach = function(client, bufnr)
 		null_opts.on_attach(client, bufnr)
@@ -59,6 +78,9 @@ null_ls.setup({
 		formatting.shfmt,
 		-- formatting.eslint_d,
 		formatting.golines,
+		formatting.black.with({
+			command = vim.fn.getcwd() .. "/.env/bin/black",
+		}),
 		-- -- diagnostics
 		-- diagnostics.eslint_d,
 		-- code actions

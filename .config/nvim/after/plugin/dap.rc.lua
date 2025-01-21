@@ -4,6 +4,9 @@ local ui = require("dapui")
 ui.setup()
 require("nvim-dap-virtual-text").setup()
 
+-- Automatically use the Python interpreter from the current project’s virtual environment
+require("dap-python").setup(vim.fn.getcwd() .. "/.venv/bin/python") -- Adjust path for Windows as needed
+
 dap.adapters["pwa-node"] = {
 	type = "server",
 	host = "::1",

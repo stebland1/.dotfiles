@@ -29,6 +29,7 @@ ts.setup({
 		"html",
 		"lua",
 		"jsdoc",
+		"python",
 	},
 	autotag = {
 		enable = true,
