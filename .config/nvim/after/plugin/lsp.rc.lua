@@ -16,7 +16,8 @@ lsp.preset("recommended")
 lsp.ensure_installed({
 	"ts_ls",
 	"lua_ls",
-	"rust_analyzer",
+	"pyright",
+	"bashls",
 })
 
 local null_opts = lsp.build_options("null-ls", {})
@@ -66,35 +67,15 @@ lspconfig.pyright.setup({
 null_ls.setup({
 	on_attach = function(client, bufnr)
 		null_opts.on_attach(client, bufnr)
-
-		local format_cmd = function(input)
-			vim.lsp.buf.format({
-				id = client.id,
-				timeout_ms = 5000,
-				async = input.bang,
-			})
-		end
-
-		local bufcmd = vim.api.nvim_buf_create_user_command
-		bufcmd(bufnr, "NullFormat", format_cmd, {
-			bang = true,
-			range = true,
-			desc = "Format using null-ls",
-		})
 	end,
 	sources = {
 		-- formatting
 		formatting.stylua,
 		formatting.prettier,
 		formatting.shfmt,
-		-- formatting.eslint_d,
-		formatting.golines,
 		formatting.black.with({
 			command = vim.fn.getcwd() .. "/.env/bin/black",
 		}),
-		-- -- diagnostics
-		-- diagnostics.eslint_d,
-		-- code actions
 		code_actions.eslint_d,
 	},
 })
@@ -103,98 +84,18 @@ lsp.configure("tailwindcss", {
 	root_dir = util.root_pattern("tailwind.config.js", "tailwind.config.cjs", "tailwind.config.ts"),
 })
 
--- Fix Undefined global 'vim'
 lsp.configure("lua_ls", {
 	settings = {
 		Lua = {
 			diagnostics = {
+				-- Fix Undefined global 'vim'
 				globals = { "vim" },
 			},
 		},
 	},
 })
 
-local function filter(arr, fn)
-	if type(arr) ~= "table" then
-		return arr
-	end
-
-	local filtered = {}
-	for k, v in pairs(arr) do
-		if fn(v, k, arr) then
-			table.insert(filtered, v)
-		end
-	end
-
-	return filtered
-end
-
-local function filterReactDTS(value)
-	if string.match(value.targetUri, "react/index.d.ts") then
-		return false
-	end
-
-	if string.match(value.targetUri, "react/ts5.0/index.d.ts") then
-		return false
-	end
-
-	return true
-end
-
-local function organize_imports()
-	local params = {
-		command = "_typescript.organizeImports",
-		arguments = { vim.api.nvim_buf_get_name(0) },
-		title = "",
-	}
-	vim.lsp.buf.execute_command(params)
-end
-
-lsp.configure("tsserver", {
-	on_attach = function(client, bufnr)
-		client.server_capabilities.documentFormattingProvider = false
-		client.server_capabilities.documentRangeFormattingProvider = false
-		client.server_capabilities.semanticTokens = false
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>fm", "<cmd>lua vim.lsp.buf.format()<CR>", {})
-	end,
-	handlers = {
-		["textDocument/definition"] = function(err, result, method, ...)
-			if vim.tbl_islist(result) and #result > 1 then
-				local filtered_result = filter(result, filterReactDTS)
-				return vim.lsp.handlers["textDocument/definition"](err, filtered_result, method, ...)
-			end
-
-			vim.lsp.handlers["textDocument/definition"](err, result, method, ...)
-		end,
-	},
-	commands = {
-		OrganizeImports = {
-			organize_imports,
-			description = "Organize Imports",
-		},
-	},
-	settings = {
-		javascript = {
-			format = {
-				indentSize = vim.o.shiftwidth,
-				convertTabsToSpaces = vim.o.expandtab,
-				tabSize = vim.o.tabstop,
-				insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces = false,
-				insertSpaceAfterOpeningAndBeforeClosingEmptyBraces = false,
-			},
-		},
-		tsserver_format_options = {
-			insertSpaceAfterOpeningAndBeforeClosingEmptyBraces = false,
-		},
-		-- strictNullChecks = true,
-		diagnostics = {
-			ignoredCodes = {
-				7016, -- "Could not find a declaration file for module..."
-				7044, -- "Implicit any..."
-			},
-		},
-	},
-})
+lsp.configure("ts_ls")
 
 local cmp = require("cmp")
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
@@ -267,15 +168,15 @@ lsp.on_attach(function(_, bufnr)
 	vim.keymap.set("i", "<C-h>", function()
 		vim.lsp.buf.signature_help()
 	end, opts)
-
-	-- Format using null ls
-	local formatGrp = vim.api.nvim_create_augroup("FormattingGroup", { clear = true })
-
-	vim.api.nvim_create_autocmd("BufWritePre", {
-		command = "NullFormat",
-		group = formatGrp,
-	})
 end)
+
+-- Automatically format all files before saving
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*",
+	callback = function()
+		vim.lsp.buf.format({ async = false }) -- Synchronous formatting
+	end,
+})
 
 lsp.setup()
 
