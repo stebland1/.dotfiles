@@ -1,0 +1,8 @@
+# Keybinding to toggle Kitty window visibility or focus
+cmd - escape : if [ $(yabai -m query --windows --window | jq -r '.app') = "kitty" ]; then \
+    skhd -k "cmd - h"; \
+else \
+		open -a /Applications/kitty.app && \
+		sleep 0.3 && \
+    yabai -m window --move abs:0:0; \
+fi
