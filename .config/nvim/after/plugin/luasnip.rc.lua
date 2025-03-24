@@ -10,6 +10,8 @@ local js = require("blandman.snips.js")
 
 require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/lua/snips" })
 
+ls.filetype_extend("javascript", { "jsdoc" })
+
 ls.config.set_config({
 	-- This tells LuaSnip to remember to keep around the last snippet.
 	-- You can jump back into it even if you move outside of the selection
