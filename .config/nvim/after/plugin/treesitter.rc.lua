@@ -30,6 +30,8 @@ ts.setup({
 		"lua",
 		"jsdoc",
 		"python",
+		"markdown",
+		"markdown_inline",
 	},
 	autotag = {
 		enable = true,
