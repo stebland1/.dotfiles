@@ -17,14 +17,18 @@ packer.startup(function(use)
 
 	-- LSP
 	use({
-		"VonHeikemen/lsp-zero.nvim",
-		branch = "v1.x",
+		"neovim/nvim-lspconfig",
 		requires = {
 			-- LSP Support
-			{ "neovim/nvim-lspconfig" },
 			{ "williamboman/mason.nvim" },
 			{ "williamboman/mason-lspconfig.nvim" },
 			{ "jose-elias-alvarez/null-ls.nvim" },
+
+			-- Formatting
+			{ "stevearc/conform.nvim" },
+
+			-- Linting
+			{ "mfussenegger/nvim-lint" },
 
 			-- Autocompletion
 			{ "hrsh7th/nvim-cmp" },
@@ -37,8 +41,6 @@ packer.startup(function(use)
 			-- Snippets
 			{ "L3MON4D3/LuaSnip" },
 			{ "rafamadriz/friendly-snippets" },
-
-			-- LSP UIs
 		},
 	})
 
@@ -96,4 +98,6 @@ packer.startup(function(use)
 	use("mbbill/undotree")
 
 	use({ "christoomey/vim-tmux-navigator" })
+
+	use("epwalsh/obsidian.nvim") -- Notes
 end)
