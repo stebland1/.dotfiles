@@ -11,6 +11,18 @@ local function telescope_buffer_dir()
 end
 
 local fb_actions = require("telescope").extensions.file_browser.actions
+local file_ignore_patterns = {
+	"yarn%.lock",
+	"node_modules/",
+	"raycast/",
+	"dist/",
+	"%.next",
+	"%.git/",
+	"%.gitlab/",
+	"build/",
+	"target/",
+	"package%-lock%.json",
+}
 
 telescope.setup({
 	defaults = {
@@ -25,7 +37,7 @@ telescope.setup({
 		results = { " " },
 		preview = { " " },
 	},
-	file_ignore_patterns = { "node%_modules" },
+	file_ignore_patterns,
 	extensions = {
 		fzf = {
 			fuzzy = false, -- false will only do exact matching
@@ -69,10 +81,14 @@ vim.keymap.set("n", "<leader>gw", function()
 	})
 end)
 vim.keymap.set("n", "<leader>gf", function()
-	builtin.live_grep()
+	builtin.live_grep({
+		file_ignore_patterns = file_ignore_patterns,
+	})
 end)
 vim.keymap.set("n", "<leader>ff", function()
-	builtin.find_files()
+	builtin.find_files({
+		file_ignore_patterns = file_ignore_patterns,
+	})
 end)
 vim.keymap.set("n", "<leader>fb", function()
 	builtin.buffers()
