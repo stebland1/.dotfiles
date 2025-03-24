@@ -10,16 +10,16 @@ keymap.set("i", "jj", "<Esc>")
 keymap.set("n", "x", '"_x')
 
 -- Keep original yank in buffer when pasting over selected word
-vim.keymap.set("n", "<Leader>p", '"0p', { noremap = true, silent = true })
-vim.keymap.set("n", "<Leader>P", '"0P', { noremap = true, silent = true })
-vim.keymap.set("v", "<Leader>p", '"0p', { noremap = true, silent = true })
+keymap.set("n", "<Leader>p", '"0p', { noremap = true, silent = true })
+keymap.set("n", "<Leader>P", '"0P', { noremap = true, silent = true })
+keymap.set("v", "<Leader>p", '"0p', { noremap = true, silent = true })
 
 -- Increment/decrement
 keymap.set("n", "+", "<C-a>")
 keymap.set("n", "-", "<C-x>")
 
 -- Select all
-keymap.set("n", "<C-a>", "gg<S-v>G")
+keymap.set("n", "<M-a>", "gg<S-v>G")
 
 -- New tab
 keymap.set("n", "te", ":tabedit")
@@ -36,16 +36,18 @@ keymap.set("n", "<C-J>", "<C-w>j")
 keymap.set("n", "<C-L>", "<C-w>l")
 
 -- Resize window
-keymap.set("n", "<S-Up>", "<C-w>+")
-keymap.set("n", "<S-Down>", "<C-w>-")
-keymap.set("n", "<S-Right>", "<C-w>>")
-keymap.set("n", "<S-Left>", "<C-w><")
+keymap.set("n", "<S-Up>", "5<C-w>+")
+keymap.set("n", "<S-Down>", "5<C-w>-")
+keymap.set("n", "<S-Right>", "5<C-w><")
+keymap.set("n", "<S-Left>", "5<C-w>>")
 
 -- Disable search highlight
 keymap.set("n", "<ESC><ESC>", ":noh<CR>")
 
 -- Center screen when page up/down
--- keymap.set("n", "<C-d>", "<C-d>zz")
--- keymap.set("n", "<C-u>", "<C-u>zz")
+keymap.set("n", "<C-d>", "<C-d>zz")
+keymap.set("n", "<C-u>", "<C-u>zz")
 
-keymap.set("n", "<leader>fz", ":Rg<CR>")
+-- Emacs style insert mode keybinds
+keymap.set("i", "<C-a>", "<C-o>^", { desc = "Jump to first non-blank character of current line" })
+keymap.set("i", "<C-e>", "<C-o>$", { desc = "Jump to last non-blank character of current line" })
