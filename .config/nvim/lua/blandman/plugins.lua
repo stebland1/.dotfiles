@@ -13,7 +13,6 @@ packer.startup(function(use)
 	use("onsails/lspkind-nvim") -- vscode-like pictograms
 	use("wbthomason/lsp-status.nvim")
 	use("rose-pine/neovim") -- Colorscheme
-	use("nvim-tree/nvim-tree.lua")
 
 	-- LSP
 	use({
