@@ -46,15 +46,13 @@ packer.startup(function(use)
 	-- Debugger
 	use({
 		"mfussenegger/nvim-dap",
-		dependencies = {
+		requires = {
+			"mfussenegger/nvim-dap-python",
 			"rcarriga/nvim-dap-ui",
 			"theHamsta/nvim-dap-virtual-text",
 			"williamboman/mason.nvim",
 		},
 	})
-	use({ "mfussenegger/nvim-dap-python" })
-	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } })
-	use("theHamsta/nvim-dap-virtual-text")
 
 	use("folke/trouble.nvim")
 
@@ -68,35 +66,32 @@ packer.startup(function(use)
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		run = ":TSUpdate",
-		dependencies = {
+		requires = {
 			"nvim-treesitter/nvim-treesitter-context",
+			"JoosepAlviste/nvim-ts-context-commentstring",
 		},
 	})
-	use("nvim-treesitter/nvim-treesitter-context")
-	use("JoosepAlviste/nvim-ts-context-commentstring")
+
 	use("kyazdani42/nvim-web-devicons") -- File icons
 
 	-- Telescope
-	use("nvim-telescope/telescope.nvim")
-	use("nvim-telescope/telescope-file-browser.nvim")
-	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+	use({
+		"nvim-telescope/telescope.nvim",
+		requires = {
+			{ "nvim-telescope/telescope-file-browser.nvim" },
+			{ "nvim-telescope/telescope-fzf-native.nvim",  run = "make" }
+		}
+	})
 
 	use("windwp/nvim-autopairs")
 	use("norcalli/nvim-colorizer.lua")
 
 	-- use("github/copilot.vim")
-
 	use("lewis6991/gitsigns.nvim")
-
 	use("theprimeagen/harpoon")
-
 	use("numToStr/FTerm.nvim")
-
 	use("tpope/vim-commentary")
-
 	use("mbbill/undotree")
-
-	use({ "christoomey/vim-tmux-navigator" })
-
+	use("christoomey/vim-tmux-navigator")
 	use("epwalsh/obsidian.nvim") -- Notes
 end)
