@@ -88,7 +88,7 @@ return {
 			},
 		},
 
-		"windwp/nvim-autopairs",
+		{ "windwp/nvim-autopairs", event = "InsertEnter", config = true },
 		"norcalli/nvim-colorizer.lua",
 
 		-- "github/copilot.vim",
