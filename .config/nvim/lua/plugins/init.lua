@@ -69,16 +69,6 @@ return {
 		"tpope/vim-commentary",
 
 		"kyazdani42/nvim-web-devicons", -- File icons
-
-		-- Telescope
-		{
-			"nvim-telescope/telescope.nvim",
-			dependencies = {
-				{ "nvim-telescope/telescope-file-browser.nvim" },
-				{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-			},
-		},
-
 		{ "windwp/nvim-autopairs", event = "InsertEnter", config = true },
 		"norcalli/nvim-colorizer.lua",
 
