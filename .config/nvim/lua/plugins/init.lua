@@ -68,15 +68,6 @@ return {
 		"tpope/vim-unimpaired",
 		"tpope/vim-commentary",
 
-		{
-			"nvim-treesitter/nvim-treesitter",
-			run = ":TSUpdate",
-			dependencies = {
-				"nvim-treesitter/nvim-treesitter-context",
-				"JoosepAlviste/nvim-ts-context-commentstring",
-			},
-		},
-
 		"kyazdani42/nvim-web-devicons", -- File icons
 
 		-- Telescope
