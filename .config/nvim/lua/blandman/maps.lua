@@ -51,3 +51,6 @@ keymap.set("n", "<C-u>", "<C-u>zz")
 -- Emacs style insert mode keybinds
 keymap.set("i", "<C-a>", "<C-o>^", { desc = "Jump to first non-blank character of current line" })
 keymap.set("i", "<C-e>", "<C-o>$", { desc = "Jump to last non-blank character of current line" })
+
+keymap.set("v", "<C-k>", "[egv", { remap = true })
+keymap.set("v", "<C-j>", "]egv", { remap = true })
