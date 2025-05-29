@@ -33,6 +33,16 @@ local function create_floating_window(opts)
 	return { buf = buf, win = win }
 end
 
+local function toggle_lazygit()
+	if not vim.api.nvim_win_is_valid(state.win) then
+		state.win = create_floating_window({ buf = -1 }).win
+		vim.fn.termopen("lazygit")
+		vim.cmd.startinsert()
+	else
+		vim.api.nvim_win_hide(state.win)
+	end
+end
+
 local function toggle_terminal()
 	if not vim.api.nvim_win_is_valid(state.win) then
 		state = create_floating_window({ buf = state.buf })
@@ -46,3 +56,4 @@ local function toggle_terminal()
 end
 
 vim.keymap.set({ "n", "t" }, "<M-1>", toggle_terminal)
+vim.keymap.set({ "n", "t" }, "<M-2>", toggle_lazygit)
