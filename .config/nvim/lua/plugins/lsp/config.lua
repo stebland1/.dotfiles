@@ -25,7 +25,7 @@ return {
 	dependencies = is_termux and {
 		{ "j-hui/fidget.nvim", opts = {} },
 	} or {
-		"williamboman/mason.nvim",
+		{ "williamboman/mason.nvim", opts = {} },
 		"williamboman/mason-lspconfig.nvim",
 		{ "j-hui/fidget.nvim", opts = {} },
 	},
