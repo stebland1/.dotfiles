@@ -32,6 +32,7 @@ return {
 				"python",
 				"markdown",
 				"markdown_inline",
+				"vimdoc",
 			},
 			autotag = {
 				enable = true,
